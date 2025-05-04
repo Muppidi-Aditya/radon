@@ -5,177 +5,254 @@
     <title>Radon Transform Results</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --pastel-purple: #b8b4ff;
+            --pastel-pink: #ffb4c5;
+            --pastel-yellow: #fff2b3;
+            --pastel-green: #b4e7ce;
+            --pastel-blue: #b4d8f1;
+            --pastel-orange: #ffd3b6;
+            --dark-text: #2d2d2d;
+            --light-text: #6a6a6a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-    background: linear-gradient(135deg, #353935 0%, #1a1a1a 100%);
-    min-height: 100vh;
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+            background: linear-gradient(120deg, #fef6f9 0%, #fff8e7 50%, #f0f7ff 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
 
         .container {
-            background: rgba(255,255,255,0.25);
-            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.17);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 42px 30px;
-            max-width: 1200px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            padding: 3rem 2rem;
+            max-width: 1400px;
             width: 100%;
-            margin: 32px 12px;
+            margin: 2rem auto;
         }
+
         h1 {
-            color: #222;
-            font-size: 2.4rem;
-            margin-bottom: 1.2em;
-            letter-spacing: 1.2px;
+            color: var(--dark-text);
+            font-size: 2.8rem;
+            margin-bottom: 2rem;
+            letter-spacing: -0.5px;
             text-align: center;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+
         .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2.5em;
-            justify-content: center;
-            margin-bottom: 2.5em;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+            padding: 0 1rem;
         }
+
         .card {
-            background: rgba(255,255,255,0.30);
-            border-radius: 20px;
-            box-shadow: 0 4px 16px 0 rgba(31,38,135,0.10);
-            padding: 1.2em 1em 1.8em 1em;
-            width: 320px;
-            max-width: 95vw;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 25px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08);
+            padding: 1.5rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.18s;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden;
         }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--pastel-purple), var(--pastel-pink), var(--pastel-blue));
+            transition: height 0.3s ease;
+        }
+
+        .card:hover::before {
+            height: 8px;
+        }
+
         .card:hover {
-            transform: translateY(-8px) scale(1.025);
-            box-shadow: 0 8px 24px 0 rgba(31,38,135,0.16);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.12);
         }
+
         .card img {
-            width: 256px;
-            height: 256px;
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            aspect-ratio: 1;
             object-fit: cover;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px 0 rgba(31,38,135,0.09);
-            margin-bottom: 1em;
-            background: #fff;
-            display: block;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            background: white;
+            transition: transform 0.3s ease;
         }
+
+        .card:hover img {
+            transform: scale(1.02);
+        }
+
         .card-title {
-            font-size: 1.08rem;
-            color: #2d2d2d;
-            font-weight: bold;
-            margin-bottom: 0.4em;
+            font-size: 1.4rem;
+            color: var(--dark-text);
+            font-weight: 600;
+            margin-bottom: 0.7rem;
         }
+
         .card-desc {
-            color: #555;
-            font-size: 0.97rem;
-            margin-bottom: 0.2em;
+            color: var(--light-text);
+            font-size: 1rem;
+            line-height: 1.6;
+            padding: 0 0.5rem;
         }
+
         .info-box {
-            background: rgba(255,255,255,0.17);
-            border-radius: 16px;
-            padding: 1.3em 1em;
-            color: #2d2d2d;
-            font-size: 1.05rem;
-            margin-bottom: 2em;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 25px;
+            padding: 2rem 1.5rem;
+            color: var(--dark-text);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
             text-align: center;
-            box-shadow: 0 2px 8px 0 rgba(31,38,135,0.07);
+            box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
         }
+
         .back-btn {
             display: inline-block;
-            background: linear-gradient(90deg, #4f8cff 0%, #a6ffcb 100%);
-            color: #fff;
+            background: linear-gradient(135deg, var(--pastel-purple), var(--pastel-pink));
+            color: white;
             border: none;
-            padding: 13px 36px;
-            border-radius: 30px;
-            font-size: 1.13rem;
-            font-weight: bold;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
             cursor: pointer;
             text-decoration: none;
             letter-spacing: 0.5px;
-            transition: background 0.3s, box-shadow 0.3s;
-            box-shadow: 0 2px 8px 0 rgba(31,38,135,0.09);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(184, 180, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
         }
+
         .back-btn:hover {
-            background: linear-gradient(90deg, #a6ffcb 0%, #4f8cff 100%);
-            box-shadow: 0 4px 16px 0 rgba(31,38,135,0.13);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(184, 180, 255, 0.4);
         }
+
         @media (max-width: 1000px) {
             .gallery {
-                flex-direction: column;
-                align-items: center;
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
             .container {
-                padding: 20px 2vw;
-            }
-            .card img {
-                width: 90vw;
-                height: 90vw;
-                max-width: 256px;
-                max-height: 256px;
+                padding: 2rem 1rem;
             }
         }
+
         @media (max-width: 600px) {
-            .container {
-                padding: 12px 1vw;
+            body {
+                padding: 1rem;
             }
             h1 {
-                font-size: 1.35rem;
-            }
-            .card {
-                width: 98vw;
-                padding: 0.7em 0.3em 1em 0.3em;
+                font-size: 2rem;
             }
             .card img {
-                width: 90vw;
-                height: 90vw;
-                max-width: 256px;
-                max-height: 256px;
+                max-width: 100%;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Radon Transform Results</h1>
+    <div class="container fade-in">
+        <h1>Image Transformation Results</h1>
         <div class="gallery">
             <div class="card">
                 <img src="{{ url_for('static', filename=original) }}" alt="Original Image">
                 <div class="card-title">Original Image</div>
-                <div class="card-desc">The image you uploaded for Radon analysis.</div>
+                <div class="card-desc">
+                    Your uploaded image in its original form.<br>
+                    Ready for transformation!
+                </div>
             </div>
             <div class="card">
                 <img src="{{ url_for('static', filename=sinogram) }}" alt="Sinogram">
-                <div class="card-title">Sinogram (Radon Transform)</div>
+                <div class="card-title">Sinogram Transform</div>
                 <div class="card-desc">
-                    The <b>sinogram</b> visualizes projections of your image at multiple angles.<br>
-                    Each column is a sum along a line at a specific angle.
+                    The <strong>sinogram</strong> shows how your image appears<br>
+                    when viewed from different angles - the essence of CT scanning.
                 </div>
             </div>
             <div class="card">
                 <img src="{{ url_for('static', filename=reconstructed) }}" alt="Reconstructed Image">
-                <div class="card-title">Reconstructed Image</div>
+                <div class="card-title">Reconstructed Magic</div>
                 <div class="card-desc">
-                    The image reconstructed from the sinogram using the inverse Radon transform.<br>
-                    This is how CT and tomography rebuild images from projections.
+                    Your image rebuilt from projections using the<br>
+                    inverse Radon transform - just like real CT scans!
                 </div>
             </div>
         </div>
         <div class="info-box">
-            <b>What is the Radon Transform?</b><br>
-            The Radon transform is used in medical imaging and tomography. It converts images into a set of projections (sinogram), which can then be used to reconstruct the original image - just like in CT scans.
+            <h3 style="color: var(--pastel-purple); margin-bottom: 1rem;">Understanding the Radon Transform</h3>
+            <p>The Radon transform is the mathematical foundation of CT scanning. It projects images at various angles to create sinograms, which are then reconstructed to form detailed cross-sectional images. This technology allows doctors to see inside the human body without invasive procedures.</p>
         </div>
-        <a href="/" class="back-btn">Process Another Image</a>
+        <a href="/" class="back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Try Another Image
+        </a>
     </div>
 </body>
 </html>
